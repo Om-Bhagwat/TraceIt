@@ -98,7 +98,7 @@ function App() {
                 <Post {...props} handleLogout={handleLogout}  name={name}/>
               )} />
               <Route path="/get" exact render={(props)=>(
-                <Get {...props} handleLogout={handleLogout}  name={name}/>
+                <Get {...props} handleLogout={handleLogout}  name={name}  email={email}/>
               )}/>
               <Route path="/get/travel" exact render={(props)=>(
                 <UpdateTravel {...props} handleLogout={handleLogout}  name={name}/>

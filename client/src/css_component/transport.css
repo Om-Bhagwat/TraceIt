@@ -133,6 +133,42 @@ html{
 	width: 14vw;
 }
 
+.oi{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.oi div label{
+	padding:20px;
+}
+
+.formfields .wq  {
+    display: flex;
+    flex-direction: column;
+    height: 5.5vh;
+    width: 30vw;
+    border-radius: 10px;
+    background-color: #7868E6;
+    color: #fff;
+    font-size: 3.5vw;
+    margin: 20px 0 10px 0;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    
+}
+
+.formfields .wq  p {
+    margin: auto 0;
+    font-size: 2vw;
+    /* border: red solid; */
+}
+
+.formfields .wq input[type="file"] {
+    display: none;
+
+}
 @media screen and (max-width:768px) {
 	.formArea {
 		flex-flow: column nowrap;

@@ -1,14 +1,23 @@
+/* eslint-disable no-undef */
 import React,{useState} from 'react';
 import Web3 from 'web3';
 import {projectAbi} from '../Abis';
 import QrcodeDecoder from 'qrcode-decoder';
+import axios from 'axios';
+import Datapoints from '../component/Bchain/DataPoints.svg';
+import '../css_component/get.css';
+
+import '../css_component/get.css';
+import Navbar from './Navbar';
 
 const web3 = new Web3(Web3.givenProvider);
 
 const contractAddr = '0xf9534A0F4b9803E600c36519FE0f8350CEA473E0';
 const Project = new web3.eth.Contract(projectAbi,contractAddr);
 
-function Get(){
+const Get=(props)=>{
+
+    const{handleLogout,name,email} = props
 
     const [id,setid] = useState(0);
     const [p_name,setpname] = useState("");
@@ -25,13 +34,13 @@ function Get(){
     const[t_feed,setfeed] = useState("");
     const[t_comp,setcomp] = useState("");
     const[head,sethead]=useState("");
-    const[head_tr,setheadtr]=useState("");
-    const[trad_name,settrname]=useState("");
-    const[trad_lat,settrlat]=useState("");
-    const[trad_lon,settrlon]=useState("");
     const[err,seterr]=useState("");
-    const[newID,setNewID] = useState("");
-
+    const[companyid,setNewID] = useState("");
+    const[canAdd,setCanAdd] = useState(false);
+    const[comment,setcomm] = useState("");
+    const[leng,setLen] = useState(0);
+    const[items,setItems] = useState([]);
+    const[edi,setEdi] = useState("");
 
     function previewImage(e){
         var reader = new FileReader();
@@ -43,6 +52,7 @@ function Get(){
                 setNewID(res.data);
                 console.log(res.data);
                 let ae = res.data;
+                setEdi(ae);
                 setid(ae[0]);
                 setTrId(ae[2]);
                 //console.log(ae[2]);
@@ -107,38 +117,186 @@ function Get(){
                 setfeed(travel_feed)
                 settradd(travel_add);
 
-               
+                setCanAdd(true);
+                try{
+                    const comres = await axios.post('http://localhost:5000/users/getcomment',{
+                        companyid,
+                    },);
+                    console.log(comres);
+                    var allCom = comres.data.comment1.length;
+                    setLen(allCom);
+                    setItems(comres.data.comment1);
+
+                    console.log(allCom);
+                }catch(error){
+                    console.log(error);
+                }
+
+                try{
+                    const prod = await axios.post('http://localhost:5000/users/update',{
+                        id,
+                    },);
+
+                    console.log(prod);
+                }catch(error){
+                    console.log(error);
+                }
+
+                try{
+                    const tran = await axios.post('http://localhost:5000/users/update',{
+                        edi,
+                    },);
+                    console.log(tran);
+                }catch(error){
+                    console.log(error);
+                }
+    }
+
+    const comm = async(e)=>{
+        e.preventDefault();
+        console.log(name);
+        console.log(email);
+        console.log(comment);
+        console.log(companyid);
+        try{
+            const response = await axios.post('http://localhost:5000/users/addcomment',{
+                email,
+                name,
+                comment,
+                companyid, 
+            },);
+            
+
+            console.log(response);
+        }catch(error){
+            console.log(error);
+        }
     }
 
     return(
-        <div>
-            <input type="file" accept="image/*" onChange={previewImage} name="file" id = "ok" />
-            <form onSubmit={handleGet}>
-                <input type="number" value={id} onChange={e=>setid(e.target.value)} placeholder="enter the ID" />
-                <input type="number" value={tr_id} onChange={e=>setTrId(e.target.value)} placeholder="Enter Transport ID"/>
-                <input type="submit" value="submit" placeholder="submit" />
-            </form>
+        <div id="bg">
 
-            <h2>Details are</h2>
-            <div>{err}</div><br></br>
-            <div>{p_name}</div><br></br>
-            <div>{p_man}</div><br></br>
-            <div>{p_exp}</div><br></br>
-            <div>{s_lat}</div><br></br>
-            <div>{s_lon}</div><br></br>
-            <div>{s_name}</div><br></br>
-            <div>{head}</div><br></br>
-            <div>{t_name}</div><br></br>
-            <div>{t_lon}</div><br></br>
-            <div>{t_lat}</div><br></br>
-            <div>{t_add}</div>
-            <div>{t_feed}</div>
-            <div>{t_comp}</div>
-            <div>{head_tr}</div><br></br>
-            <div>{trad_name}</div><br></br>
-            <div>{trad_lat}</div><br></br>
-            <div>{trad_lon}</div><br></br>
-        </div>
+            <Navbar handleLogout={handleLogout} name={name}/>
+
+            <div className="m">
+                <div className="topH">
+                    <h1>Get Product Details</h1>
+                    <h2>Buy Products With Trust, Transparency & Tracebility</h2>
+                </div>
+
+                <div className="topImg"><img src={Datapoints} alt=""/></div>
+                
+                <div class="uploadQR">
+                        <form onSubmit={handleGet}>
+                                <label for="ok">
+                                    <input type="file" accept="image/*" onChange={previewImage} name="file" id="ok"/>
+                                            <p>
+                                                Choose&nbsp;File
+                                            </p>
+                                    </label>
+                                    <button>Upload&nbsp;QR</button>
+                        </form>
+                </div>
+
+
+                {canAdd?(
+                        <div>
+                            <div className="details">
+                                <h2>Product Details</h2>
+                                <div className="dataSets">
+                                    <div className="set">
+                                        <h3>Supplier Name</h3>
+                                        <p>{s_name}</p>
+                                    </div>
+                                    <div className="set">
+                                        <h3>Product Name</h3>
+                                        <p>{p_name}</p>
+                                    </div>
+                                    <div className="inRow">
+                                        <div className="set">
+                                            <h3>Manufacturing Date</h3>
+                                            <p>{p_man}</p>
+                                        </div>
+                                        <div className="set">
+                                            <h3>Expirey Date</h3>
+                                            <p>{p_exp}</p>
+                                        </div>
+                                    </div>
+                                    <div className="set">
+                                        <h3>Feedback Link</h3>
+                                        <p>www.something.com</p>
+                                    </div>
+                                    <div className="inRow">
+                                        <div className="set">
+                                            <h3>Type</h3>
+                                            <p>Buiscuit</p>
+                                        </div>
+                                        <div className="set">
+                                            <h3>Count</h3>
+                                            <p>100000</p>
+                                        </div>
+                                    </div>
+                                    <div className="set">
+                                        <h3>Product Description</h3>
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis quae consequatur quisquam molestias earum unde odio et. Obcaecati nihil facilis reiciendis ab ea, suscipit, iste illo quidem, tempore veritatis quibusdam?</p>
+                                    </div>
+                            </div>
+                            <div className="details">
+                                <h2>Transport Details</h2>
+                                <div className="dataSets">
+                                    <div className="set">
+                                        <h3>Transport&nbsp;Company</h3>
+                                        <p>{t_name}</p>
+                                    </div>
+                                    <div className="set">
+                                        <h3>Transport&nbsp;Address</h3>
+                                        <p>{t_add}</p>
+                                    </div>
+                            <div className="set">
+                                <h3>FeedBack&nbsp;At</h3>
+                                <p>{t_feed}</p>
+                            </div>
+                            <div className="set">
+                                <h3>Compliants&nbsp;At</h3>
+                                <p>{t_comp}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="locationMap">
+
+                    </div>
+
+                    <div className="cmntDiv">
+                    <h2>Comment Section</h2>
+                    {items.map((item) => (
+                                    <div class="cmntBox">
+                                        <h3 key={item.id} class="name">
+                                            User:{item.name}
+                                        </h3>
+                                        <h4 key={item.id} class="comment">
+                                            Review:{item.comment}
+                                        </h4>
+                                    </div>
+                                    
+                        ))}
+                    <div class="addcmnt">
+                        <form className="tr" onSubmit={comm}>
+                            <textarea name="commentBox" id="commentbox" cols="100%" rows="5"></textarea>
+                            <button value="submit">Add&nbsp;Comment</button>
+                        </form>
+                    </div>
+            </div>
+
+                </div>    
+            </div>
+                    ):(
+                        <div></div>
+                    )}
+            </div>
+
+
+            <div className="foot"></div>
+	</div>
     );
 }
 

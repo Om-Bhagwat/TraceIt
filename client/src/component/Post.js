@@ -7,6 +7,7 @@ import '../css_component/post.css';
 import Trader from '../component/Bchain/trader.svg';
 import Down from '../component/Bchain/download-icon.svg';
 import Navbar from './Navbar';
+import axios from 'axios';
 
 const QRCode = require('qrcode.react');
 //import Modal from "react-bootstrap/Modal";
@@ -32,7 +33,7 @@ const Post=(props)=>{
   const [s_lon,setslon] = useState("");
   const [s_name,setsname] = useState("");
   const [feed,setFeed] = useState("");
-  const [typeo,setType] = useState("");
+  const [type,setType] = useState("");
   const [count,setCount] = useState(0);
   const [proddesc,setProdesc] = useState("");
   function getLocation(){
@@ -82,6 +83,20 @@ const Post=(props)=>{
     })
     console.log(result);
 
+    const ide = id.toString();
+
+    try{
+      const resp = await axios.post('http://localhost:5000/users/post',{
+        ide,
+        type,
+        count,
+        proddesc,
+      },);
+      console.log(resp);
+    }catch(error){
+      console.log(error);
+    }
+
     //handleShow();
 
     //window.location('/get');
@@ -106,13 +121,23 @@ const Post=(props)=>{
 						<input type="text" id="sname" name="sName" value={s_name} onChange={e=>setsname(e.target.value)} placeholder="Supplier Name"/>
 						<input type="text" id="pname" name="sName" value={p_name} onChange={e=>setpname(e.target.value)} placeholder="Product Name"/>
 						<div className="inRow">
-							<input type="date" id="mdate" name="sName" value={p_man} onChange={e=>setpman(e.target.value)} placeholder="Manufacturing Date"/>
-							<input type="date" id="exdate" name="sName" value={p_exp} onChange={e=>setpexp(e.target.value)} placeholder="Expirey Date"/>
+              <div className="oi">
+                  <div>
+                    <label>Manufacturing Date</label>
+                  </div>
+                  <input type="date" id="mdate" name="sName" value={p_man} onChange={e=>setpman(e.target.value)} placeholder="Manufacturing Date"/>
+              </div>
+              <div className="oi">
+                  <div>
+                    <label>Expiry Date</label>
+                  </div>
+                  <input type="date" id="exdate" name="sName" value={p_exp} onChange={e=>setpexp(e.target.value)} placeholder="Expirey Date"/>
+              </div>
 						</div>
 						<input type="text" id="feedbcak" name="sName" value={feed} onChange={e=>setFeed(e.target.value)} placeholder="Feedback Link"/>
 						<div class="inRow">
-							<input type="text" id="type" name="sName" value={typeo} onChange={e=>setType(e.target.value)} placeholder="Type"/>
-							<input type="text" id="count" name="sName" value={count} onChange={e=>setCount(e.target.value)} placeholder="Count"/>
+							<input type="text" id="type" name="sName" value={type} onChange={e=>setType(e.target.value)} placeholder="Type"/>
+							<input type="Number" id="count" name="sName" value={count} onChange={e=>setCount(e.target.value)} placeholder="Count"/>
 						</div>
 						<input type="text" id="desc" name="sName" value={proddesc} onChange={e=>setProdesc(e.target.value)} placeholder="Product Description"/>
 						<button onClick={getLocation}>Get Location</button>

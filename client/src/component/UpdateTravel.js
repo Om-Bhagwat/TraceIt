@@ -7,6 +7,7 @@ import Down from '../component/Bchain/download-icon.svg';
 import Transport from '../component/Bchain/transport.svg';
 import Navbar from './Navbar';
 import '../css_component/tranport.css';
+import axios from 'axios';
 
 const QRCode = require('qrcode.react');
 const web3 = new Web3(Web3.givenProvider);
@@ -29,7 +30,7 @@ const UpdateTravel=(props)=>{
     const[comp,setcomp] = useState("");
     const[result,setresult] = useState('');
     const[compID,setCompId] = useState("");
-    const[typeo,setTypeo] = useState("");
+    const[type,setTypeo] = useState("");
     const [count,setCount] = useState(0);
     const[startdate,setStart] = useState("");
     const[endDate,setEndDate] = useState("");
@@ -102,6 +103,21 @@ const UpdateTravel=(props)=>{
                 })
             console.log(result);
                 seterr("");
+
+                const ae = compID.toString();
+
+                try{
+                    const resp = await axios.post('http://localhost:5000/users/post',{
+                        ae,
+                        type,
+                        count,
+                    })
+
+                    console.log(resp);
+                }catch(error){
+                    console.log(error);
+                }
+
                // window.location("/")
         }
 
@@ -121,22 +137,33 @@ const UpdateTravel=(props)=>{
                 <div className="formArea">
                     <div className="topImg"><img src={Transport} alt=""/></div>
                     <div className="formfields">
-                    <input type="file" accept="image/*" onChange={previewImage} name="file" id = "ok" />
                         <form onSubmit={travelSet}>
                         <button type="button" onClick={genUnId}>Generate Unique Transport ID.</button>
-                            <input type="text" id="sname" name="sName" value={t_name} onChange={e=>settname(e.target.value)} placeholder="Transporter Name"/>
+                        <label className="wq" for="ok">
+                            <input type="file" accept="image/*" onChange={previewImage} name="file" id="ok" />
+                            <p>Choose File</p>
+                        </label>
+                            <input type="text"  id="sname" name="sName" value={t_name} onChange={e=>settname(e.target.value)} placeholder="Transporter Name"/>
                             <input type="text" id="pname" name="sName" value={add} onChange={e=>setadd(e.target.value)} placeholder="Address"/>
                             <div className="inRow">
-                                <span>Start Date</span>
-                                <input type="date" id="mdate" name="sName" value={startdate} onChange={e=>setStart(e.target.value)}   placeholder="Start date"/>
-                                <span>Expected Delivery</span>
-                                <input type="date" id="mdate" name="sName" value={endDate} onChange={e=>setEndDate(e.target.value)}  placeholder="Expected date"/>
+                                <div className="oi">
+                                    <div>
+                                        <label>Start Date</label>
+                                    </div>
+                                    <input type="date" id="mdate" name="sName" value={startdate} onChange={e=>setStart(e.target.value)}   placeholder="Start date"/>    
+                                </div>
+                                <div className="oi">
+                                    <div>
+                                        <label>Expected End Date</label>
+                                    </div>
+                                    <input type="date" id="mdate" name="sName" value={endDate} onChange={e=>setEndDate(e.target.value)}  placeholder="Expected date"/>  
+                                </div>
                             </div>
                             <input type="text" id="feedbcak" name="sName" value={feed} onChange={e=>setfeed(e.target.value)} placeholder="Feedback Link"/>
                             <input type="text" id="feedbcak" name="sName" value={comp} onChange={e=>setcomp(e.target.value)} placeholder="Compliants Link"/>
                             <div className="inRow">
-                                <input type="text" id="type" name="sName" value={typeo} onChange={e=>setTypeo(e.target.value)}  placeholder="Type"/>
-                                <input type="text" id="count" name="sName" value={count} onChange={e=>setCount(e.target.value)}  placeholder="Count"/>
+                                <input type="text" id="type" name="sName" value={type} onChange={e=>setTypeo(e.target.value)}  placeholder="Type"/>
+                                <input type="Number" id="count" name="sName" value={count} onChange={e=>setCount(e.target.value)}  placeholder="Count"/>
                             </div>
                             <button type="button" onClick={getLocation}>Get Location.</button>
                             <button type="submit">Submit</button>

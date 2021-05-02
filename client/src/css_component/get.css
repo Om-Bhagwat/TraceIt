@@ -1,0 +1,271 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html{
+	height:100%
+}
+
+#bg {
+	height: 100%;
+	background: linear-gradient(135deg, #7868E6, #EDEEF7);
+	background-size: cover;
+}
+
+/* ----------navbar------------ */
+
+
+
+/* ----------main content starts------------ */
+.m {
+	display: flex;
+	flex-flow: column nowrap;
+	/* align-content:center; */
+	align-items: center;
+	/* justify-content: center; */
+	/* border: black solid; */
+}
+
+.topH {
+	/* height: 20vh; */
+	text-align: center;
+	margin: 10vh 0 5vh 0;
+	/* border: #000000 solid; */
+}
+
+.topH h1 {
+	font-size: 5vw;
+	color: #592FCE;
+	font-family: 'Amaranth',sans-serif;
+}
+.topH h2 {
+	font-size: 3vw;
+	color: #fff;
+	font-family: 'Cairo',sans-serif;
+}
+
+/* ---------- Top Img ------------ */
+
+.topImg {
+	/* width: 80vw; */
+	/* margin: 20px 20px; */
+	/* border: purple solid; */
+}
+
+.topImg img {
+	max-width: 70%;
+	margin: 10px 10px 20px 10px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+/* ----------upload Button------------ */
+.uploadQR {
+    /* border: purple solid; */
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding: 5px;
+}
+.cmntDiv {
+    /* border: #592FCE solid; */
+    width: 100%;
+    text-align: center;
+}
+.cmntDiv h2 {
+    font-family: 'Asap Condensed',sans-serif;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    font-size: 4vw;
+}
+
+.cmntBox {
+    width: 90%;
+    margin: 10px auto;
+    padding: 5px 0;
+    background-color: #7868E6;
+    border-radius: 15px;
+}
+
+.cmntBox h3 {
+    /* border: #592FCE solid; */
+    width: 85%;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 1.7vw;
+    padding: 10px;
+    font-family: 'Mina',sans-serif;
+    color: white;
+}
+.cmntBox .comment {
+    text-align: left;
+    /* border: #592FCE solid; */
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    font-size: 1.3vw;
+    background-color: aliceblue;
+    padding: 10px;
+    border-radius: 15px;
+    font-family: 'Mina',sans-serif;
+}
+.tr{
+	display: flex;
+	text-align: center;
+}
+
+.cmntDiv h3 {
+    font-family: 'Asap Condensed',sans-serif;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 2vw;
+}
+
+.addcmnt {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content:center;
+    align-items: center;
+    justify-content: center;
+    /* border: #592FCE solid; */
+    margin-bottom: 40px;
+}
+
+.addcmnt  textarea {
+    border-radius: 15px;
+    margin: 0 2vw;
+    border: black solid;
+}
+
+.addcmnt  button {
+    height: 10vh;
+    width: 15vw;
+    border-radius: 10px;
+    background-color: #7868E6;
+    color: #fff;
+    font-size: 2vw;
+    margin: auto 0;
+    border: none;
+    cursor: pointer;
+}
+
+.uploadQR label {
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    width: 35vw;
+    border-radius: 10px;
+    background-color: #7868E6;
+    color: #fff;
+    font-size: 3.5vw;
+    margin: 20px 0 10px 0;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    
+}
+
+.uploadQR label p {
+    margin: auto 0;
+    /* border: red solid; */
+}
+
+.uploadQR input[type="file"] {
+    display: none;
+
+}
+
+.uploadQR button {
+    height: 10vh;
+    width: 35vw;
+    border-radius: 10px;
+    background-color: #7868E6;
+    color: #fff;
+    font-size: 3.5vw;
+    margin: 10px 0 40px 0;
+    border: none;
+    cursor: pointer;
+}
+
+/* ----------Details------------ */
+
+.details {
+	/* border: purple solid; */
+	width: 100%;
+	/* height: 50vh; */
+	text-align: center;
+	/* margin-bottom: 3vh; */
+	/* margin-bottom: 5vh; */
+
+	background:url(../component/Bchain/detailsBG.svg) no-repeat;
+	background-position: center;
+	/* background-size: cover; */
+	/* background-size: contain; */
+	/* background-size: 100% 110%; */
+	background-size: 100% auto;
+	background-attachment:fixed;
+	color: #fff;
+}
+
+.details h2 {
+	font-family: 'Mina',sans-serif;
+	font-size: 4.5vw;
+	width: 50%;
+	margin:20px auto 0 auto;
+	/* border: red solid; */
+}
+
+.dataSets {
+	width: 65%;
+	margin:0px auto 0 auto;
+	/* border: red solid; */
+}
+
+.set {
+	margin: 2vh auto;
+	/* border: greenyellow solid; */
+}
+
+.set h3 {
+	font-family: 'Asap Condensed',sans-serif;
+	font-size: 2.5vw;
+	
+}
+
+.set p {
+	font-family: 'Montserrat',sans-serif;
+	font-size: 2vw;
+	margin-top: 5px;
+}
+
+.inRow {
+	display: flex;
+	flex-flow: row nowrap;
+	/* align-content:center; */
+	/* align-items: center; */
+	justify-content: center;
+}
+
+.inRow .set {
+	margin-left: 1vw;
+	margin-right: 1vw;
+	/* width: 14vw; */
+}
+
+/* ----------map------------ */
+
+/* ----------comment section------------ */
+
+/* ----------navbar------------ */
+
+/* ----------navbar------------ */
+
+/* ----------footer------------ */
+.foot {
+	background-color: #7868E6;
+	height: 10vh;
+	width: 100%;
+}

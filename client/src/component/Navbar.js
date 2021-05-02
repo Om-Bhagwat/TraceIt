@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import anime from 'animejs/lib/anime.es.js';
 import {Link} from 'react-router-dom';
-import '../css_component/homepage.css';
+import '../css_component/navbar.css';
 
 
 const Navbar=(props)=>{
@@ -87,11 +87,12 @@ function ham(){
 
           <span className="options">
             <ul class="navlinks">
+              <li><Link to="/"  >Home</Link></li>
               <li><Link to="/get"  >Get Details</Link></li>
               <li><Link to="/post" >Post</Link></li>
               <li><Link to="/get/travel"  >Update</Link></li>
-              <li><Link to="/"  >{name}</Link></li>
-              <li><Link to="/" onClick={handleLogout} >Log&nbsp;Out</Link></li>
+              {/* <li><Link to="/">{name}</Link></li> */}
+              <li><Link to="/" onClick={handleLogout}>LogOut</Link></li>
             </ul>
           </span>
     </div>

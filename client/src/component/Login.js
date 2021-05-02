@@ -35,6 +35,8 @@ const Login =(props)=>{
         }
     }
 
+
+
     const logSub = async(e)=>{
         e.preventDefault();
         try{
@@ -43,6 +45,8 @@ const Login =(props)=>{
                 password
             },);
             var n = response.data.user.name;
+            var emaile = response.data.user.email;
+            setEmail(emaile);
             setName(n)
             console.log(name);
             setCorrect(true);
