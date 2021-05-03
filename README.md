@@ -1,4 +1,4 @@
-# TraceIt
+﻿# TraceIt
 ___
 ## Abstract
 **TraceIt** aims revolutionizing **Poultry Market** using Ethereum blockchain which provides transparent, secure data storage and transfer technology with no intermediary, which means each member can check the validity of the chain . Producers will post data online And stick a Qr code to products ,consumers will be able to scan the Qr code and get all the details about product.
@@ -57,4 +57,3 @@ ___
 
 	This concept can further be applied to the whole consumer-producer market supply chain.
 
-[^1]: This is the footnote.
